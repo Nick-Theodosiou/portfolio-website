@@ -12,6 +12,14 @@ b {
     color: #ececec;
 }
 
+.custom-link {
+    color: #40e8b0;
+}
+
+.custom-link:hover {
+    color: #3ad19f;
+}
+
 .scrollspy-example {
     height: auto;
     position: relative;
