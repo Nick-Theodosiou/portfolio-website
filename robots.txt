@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: https://nicolas-theodosiou-portfolio.pages.dev/sitemap.xml
