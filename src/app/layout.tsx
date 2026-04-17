@@ -22,9 +22,9 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nicolastheodosiou.pages.dev/"),
-  title: "Nicolas Theodosiou — Full Stack Developer, Cyprus",
+  title: "Nicolas Theodosiou — Full Stack Developer",
   description:
-    "I am a Full Stack Developer based in Cyprus, specializing in React, Next.js, Spring Boot, and modern web solutions.",
+    "I am a Full Stack Developer based in Cyprus, specializing in React, Next.js, E-Commerce, and modern web solutions.",
   alternates: {
     canonical: "/",
   },
@@ -36,7 +36,8 @@ export const metadata: Metadata = {
     "Theodosiou",
     "React",
     "Next.js",
-    "Spring Boot",
+    "Wordpress",
+    "E-Commerce",
     "Software Engineer",
   ],
   robots: "index, follow",
@@ -45,19 +46,19 @@ export const metadata: Metadata = {
     url: "https://nicolastheodosiou.pages.dev/",
     title: "Nicolas Theodosiou — Full Stack Developer",
     description:
-      "Full Stack Developer based in Cyprus. Experienced in React, Next.js, Spring Boot, and mobile development.",
+      "Full Stack Developer based in Cyprus specializing in React, Next.js, E-Commerce, and modern web solutions.",
     images: [
-      { url: "https://nicolastheodosiou.pages.dev/images/prof-nobg.png" },
+      { url: "https://nicolastheodosiou.pages.dev/images/logo-share.png" },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Nicolas Theodosiou — Full Stack Developer",
-    description: "Full Stack Developer based in Cyprus.",
-    images: ["https://nicolastheodosiou.pages.dev/images/prof-nobg.png"],
+    description: "Full Stack Developer based in Cyprus specializing in React, Next.js, and E-Commerce.",
+    images: ["https://nicolastheodosiou.pages.dev/images/logo-share.png"],
   },
 };
- 
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
