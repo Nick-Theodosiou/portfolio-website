@@ -2,7 +2,7 @@
 
 A high-performance, portfolio showcase built to demonstrate modern frontend engineering expertise. This project serves as a practice ground for advanced UI/UX patterns and seamless transitions.
 
-## 🚀 The Tech Stack
+## The Tech Stack
 
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router + Turbopack)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
@@ -10,9 +10,9 @@ A high-performance, portfolio showcase built to demonstrate modern frontend engi
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Deployment**: [Vercel](https://vercel.com/)
 
-## 🛠️ Development
+## Development
 
-First, run the development server:
+Running the development server:
 
 ```bash
 npm install
