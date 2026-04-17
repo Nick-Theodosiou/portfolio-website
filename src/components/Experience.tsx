@@ -57,7 +57,7 @@ export default function Experience() {
           }}
         />
       </div>
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-gold/5 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-gold/5 blur-[100px] rounded-full pointer-events-none gpu-layer" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
@@ -96,7 +96,7 @@ export default function Experience() {
               >
                 <div
                   className={cn(
-                    "absolute -left-[32px] md:-left-[81px] top-8 w-3 h-3 rounded-full border-2 border-accent-gold bg-background-obsidian z-10 transition-all duration-700 group-hover:bg-accent-gold group-hover:shadow-[0_0_15px_rgba(212,175,55,0.4)]",
+                    "absolute -left-[32px] md:-left-[81px] top-8 w-3 h-3 rounded-full border-2 border-accent-gold bg-background-obsidian z-10 transition-[background-color,box-shadow] duration-700 group-hover:bg-accent-gold group-hover:shadow-[0_0_15px_rgba(212,175,55,0.4)]",
                     exp.current &&
                       "bg-accent-gold shadow-[0_0_20px_rgba(212,175,55,0.6)]",
                   )}
@@ -104,7 +104,7 @@ export default function Experience() {
 
                 <motion.div
                   whileTap={{ scale: 0.98 }}
-                  className="p-8 md:p-12 border border-white/5 bg-surface-slate/40 glass rounded-sm transition-all duration-700 hover:border-accent-gold/40 hover:bg-surface-slate/60"
+                  className="p-8 md:p-12 border border-white/5 bg-surface-slate/40 glass rounded-sm transition-[border-color,background-color] duration-700 hover:border-accent-gold/40 hover:bg-surface-slate/60"
                 >
                   <div
                     className={cn(

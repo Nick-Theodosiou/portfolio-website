@@ -54,8 +54,8 @@ export default function Hero() {
               "radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 95%)",
           }}
         />
-        <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-accent-gold/12 blur-[130px] rounded-full" />
-        <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-accent-indigo/15 blur-[110px] rounded-full" />
+        <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-accent-gold/12 blur-[130px] rounded-full gpu-layer" />
+        <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-accent-indigo/15 blur-[110px] rounded-full gpu-layer" />
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_max-content] gap-12 lg:gap-24 items-center relative z-10 w-full mt-[-2rem] md:mt-[-4rem]">
@@ -118,7 +118,7 @@ export default function Hero() {
                 backgroundColor: THEME.colors.accentGoldTransparent,
                 color: THEME.colors.accentGold,
               }}
-              className="px-8 py-4 bg-accent-gold text-background-obsidian font-display text-[10px] uppercase tracking-[0.2em] font-semibold rounded-[2px] transition-all duration-150 hover:bg-transparent hover:text-accent-gold border border-accent-gold cursor-pointer"
+              className="px-8 py-4 bg-accent-gold text-background-obsidian font-display text-[10px] uppercase tracking-[0.2em] font-bold rounded-[2px] transition-[background-color,color,border-color] duration-150 hover:bg-transparent hover:text-accent-gold border border-accent-gold cursor-pointer"
             >
               View my work
             </motion.a>
@@ -136,7 +136,7 @@ export default function Hero() {
                 color: "rgba(255, 255, 255, 1)",
               }}
               transition={{ duration: 0.15 }}
-              className="px-8 py-4 border border-border-subtle text-text-muted font-display text-[10px] uppercase tracking-[0.2em] font-semibold rounded-[2px] transition-all duration-150 cursor-pointer"
+              className="px-8 py-4 border border-white/20 text-white/80 font-display text-[10px] uppercase tracking-[0.2em] font-bold rounded-[2px] transition-[background-color,color,border-color] duration-150 cursor-pointer"
             >
               Get in touch
             </motion.a>

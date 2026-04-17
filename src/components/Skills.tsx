@@ -107,8 +107,8 @@ export default function Skills() {
       id="skills"
       className="py-16 md:py-32 px-6 md:px-12 bg-background-obsidian relative overflow-hidden"
     >
-      <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-accent-gold/10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent-indigo/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-accent-gold/10 blur-[120px] rounded-full pointer-events-none gpu-layer" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent-indigo/10 blur-[100px] rounded-full pointer-events-none gpu-layer" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
@@ -153,7 +153,7 @@ export default function Skills() {
                 drag="x"
                 onDragStart={() => setIsDragging(true)}
                 onDragEnd={() => setIsDragging(false)}
-                className="flex gap-4 md:gap-6 whitespace-nowrap items-center cursor-grab active:cursor-grabbing will-change-transform"
+                className="flex gap-4 md:gap-6 whitespace-nowrap items-center cursor-grab active:cursor-grabbing gpu-layer"
               >
                 {/* Tripled list for a absolute seamless loop on all device widths */}
                 {[
@@ -165,7 +165,7 @@ export default function Skills() {
                     key={`${skill}-${i}`}
                     whileTap={{ scale: 0.95 }}
                     style={{ backfaceVisibility: "hidden" }}
-                    className="p-4 md:p-8 min-w-[120px] md:min-w-[200px] border border-white/[0.05] bg-surface-slate/80 rounded-sm hover:border-accent-gold/40 hover:bg-surface-slate/90 transition-all duration-700 flex flex-col items-center justify-center gap-3 md:gap-4 group cursor-inherit"
+                    className="p-4 md:p-8 min-w-[120px] md:min-w-[200px] border border-white/[0.05] bg-surface-slate/80 rounded-sm hover:border-accent-gold/40 hover:bg-surface-slate/90 transition-[border-color,background-color] duration-700 flex flex-col items-center justify-center gap-3 md:gap-4 group cursor-inherit"
                   >
                     <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/[0.03] group-hover:bg-accent-gold/10 flex items-center justify-center transition-all duration-500">
                       <span className="text-[9px] md:text-xs text-accent-gold group-hover:scale-110 transition-transform font-bold uppercase">

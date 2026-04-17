@@ -51,7 +51,7 @@ export default function ProjectCarousel({
   return (
     <div
       className={cn(
-        "relative group overflow-hidden rounded-sm bg-surface-slate border border-white/5 transition-colors duration-500 hover:border-accent-gold/20",
+        "relative group overflow-hidden rounded-sm bg-surface-slate border border-white/5 transition-[border-color] duration-500 hover:border-accent-gold/20",
         isMobile ? "aspect-[9/16] max-w-[280px] mx-auto" : "aspect-video",
       )}
       onClick={onInteraction}
@@ -89,7 +89,7 @@ export default function ProjectCarousel({
             fill
             sizes="(max-width: 768px) 80vw, 40vw"
             className={cn(
-              "grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 pointer-events-none select-none",
+              "grayscale-[20%] group-hover:grayscale-0 transition-[filter] duration-700 pointer-events-none select-none",
               "object-contain object-center"
             )}
           />

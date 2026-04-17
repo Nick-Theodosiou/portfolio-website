@@ -124,7 +124,7 @@ export default function Projects() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className={cn(
-                "group flex flex-col items-center lg:items-center gap-10 p-5 md:p-12 border border-white/5 bg-surface-slate/20 glass rounded-sm hover:border-accent-gold/40 hover:bg-surface-slate/40 transition-all duration-700 cursor-default overflow-hidden",
+                "group flex flex-col items-center lg:items-center gap-10 p-5 md:p-12 border border-white/5 bg-surface-slate/20 glass rounded-sm hover:border-accent-gold/40 hover:bg-surface-slate/40 transition-[border-color,background-color] duration-700 cursor-default overflow-hidden",
                 i % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row",
               )}
             >

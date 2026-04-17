@@ -21,49 +21,36 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
+    // 1. Simple scroll listener for header background
     const handleScroll = () => {
-      // 1. Navigation background opacity
       setIsScrolled(window.scrollY > 50);
-
-      const sectionIds = ["about", "experience", "projects", "education", "skills"];
-      const triggerLine = 200; // Highlight section when it crosses this Y-pixel from top
-      const docHeight = document.documentElement.scrollHeight;
-      const scrollBottom = window.scrollY + window.innerHeight;
-
-      // Bottom of page: explicitly lock to Skills
-      if (scrollBottom >= docHeight - 100) {
-        setActiveSection("skills");
-        return;
-      }
-
-      // Top of page: clear highlights
-      if (window.scrollY < 100) {
-        setActiveSection("");
-        return;
-      }
-
-      // Greedy check: find the last section that has crossed our trigger line
-      let current = "";
-      for (const id of sectionIds) {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= triggerLine) {
-            current = id;
-          }
-        }
-      }
-
-      if (current) {
-        setActiveSection(current);
-      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    
+    // 2. Intersection Observer for active section highlighting
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px', // Trigger when section is in the upper part of the screen
+      threshold: 0
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    const sectionIds = ["about", "experience", "projects", "education", "skills"];
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) sectionObserver.observe(el);
+    });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      sectionObserver.disconnect();
     };
   }, []);
 

@@ -104,7 +104,7 @@ export default function Education() {
                   whileInView={{ opacity: 1, y: 0 }}
                   whileTap={{ scale: 0.98 }}
                   viewport={{ once: true }}
-                  className="flex items-start gap-6 p-6 md:p-8 border border-white/5 bg-background-obsidian hover:border-accent-gold/30 transition-all duration-500 rounded-sm group cursor-default"
+                  className="flex items-start gap-6 p-6 md:p-8 border border-white/5 bg-background-obsidian hover:border-accent-gold/30 transition-[border-color] duration-500 rounded-sm group cursor-default"
                 >
                   <cert.icon className="text-accent-gold shrink-0" size={24} />
                   <div>
