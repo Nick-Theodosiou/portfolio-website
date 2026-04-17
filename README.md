@@ -1,3 +1,26 @@
-# Portfolio Website
+# Nick Theodosiou — Portfolio
 
-This is a website I made in my free time to practice my web development skills. It uses HTML5, CSS, JavaScript, Bootstrap and a live version of it can be found [here](https://nicolastheodosiou.pages.dev/).  
+A high-performance, portfolio showcase built to demonstrate modern frontend engineering expertise. This project serves as a practice ground for advanced UI/UX patterns and seamless transitions.
+
+## 🚀 The Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router + Turbopack)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Deployment**: [Vercel](https://vercel.com/)
+
+## 🛠️ Development
+
+First, run the development server:
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+---
+
+A live version of the website can be found [here](https://nicolastheodosiou.pages.dev/).
