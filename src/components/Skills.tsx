@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 import { Target, Zap, Layers } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { THEME } from "@/constants/theme";
 
 const skills = {
@@ -56,54 +55,52 @@ const principles = [
 export default function Skills() {
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef({ isDown: false, startX: 0, scrollLeft: 0 });
+  const trackRef = useRef<HTMLDivElement>(null);
+  const trackWidthRef = useRef(0);
+  const x = useMotionValue(0);
 
-  // Truly Infinite Logic: Silent Scroll-Reset
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    if (trackRef.current) {
+      const width = trackRef.current.scrollWidth / 3;
+      trackWidthRef.current = width;
+      // Start at the middle segment for maximum drag runway
+      x.set(-width);
+    }
+  }, [x]);
 
-    const handleScroll = () => {
-      const { scrollLeft, scrollWidth } = scrollContainer;
-      const segmentWidth = scrollWidth / 3;
-
-      if (scrollLeft >= segmentWidth * 2) {
-        scrollContainer.scrollLeft = segmentWidth;
-      } else if (scrollLeft <= 0) {
-        scrollContainer.scrollLeft = segmentWidth;
+  // Handle resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (trackRef.current) {
+        trackWidthRef.current = trackRef.current.scrollWidth / 3;
       }
     };
-
-    const initialSegmentWidth = scrollContainer.scrollWidth / 3;
-    scrollContainer.scrollLeft = initialSegmentWidth;
-
-    scrollContainer.addEventListener("scroll", handleScroll);
-    return () => scrollContainer.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!scrollRef.current) return;
-    setIsDragging(true);
-    dragRef.current = {
-      isDown: true,
-      startX: e.pageX - scrollRef.current.offsetLeft,
-      scrollLeft: scrollRef.current.scrollLeft,
-    };
-  };
+  // Auto-scroll loop
+  useAnimationFrame((time, delta) => {
+    if (!trackWidthRef.current) return;
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    dragRef.current.isDown = false;
-  };
+    const trackWidth = trackWidthRef.current;
+    let currentX = x.get();
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!dragRef.current.isDown || !scrollRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - dragRef.current.startX) * 2; // Scroll speed multiplier
-    scrollRef.current.scrollLeft = dragRef.current.scrollLeft - walk;
-  };
+    // 1. Apply auto-scroll (only if not interacting)
+    if (!isHovered && !isDragging) {
+      const scrollSpeed = 0.05;
+      currentX -= delta * scrollSpeed;
+    }
+
+    // 2. Always apply wrapping logic (even during drag/hover)
+    if (currentX <= -trackWidth * 2) {
+      currentX += trackWidth;
+    } else if (currentX >= -trackWidth * 0.5) {
+      currentX -= trackWidth;
+    }
+
+    x.set(currentX);
+  });
 
   return (
     <section
@@ -139,63 +136,53 @@ export default function Skills() {
               Technical Stack
             </h3>
 
-            <div className="relative py-10 border-y border-white/5 bg-surface-slate/20 rounded-sm overflow-hidden">
-              <div
-                className={cn(
-                  "flex overflow-x-auto no-scrollbar group select-none",
-                  isDragging ? "cursor-grabbing" : "cursor-grab",
-                )}
-                ref={scrollRef}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => {
-                  setIsHovered(false);
-                  handleMouseUp();
+            <div
+              className="relative py-10 border-y border-white/5 bg-surface-slate/20 rounded-sm overflow-hidden select-none"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              onTouchStart={() => setIsHovered(true)}
+              onTouchEnd={() => setIsHovered(false)}
+            >
+              <motion.div
+                ref={trackRef}
+                style={{
+                  x,
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
                 }}
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
-                onMouseMove={handleMouseMove}
-                onTouchStart={() => setIsHovered(true)}
-                onTouchEnd={() => setIsHovered(false)}
+                drag="x"
+                onDragStart={() => setIsDragging(true)}
+                onDragEnd={() => setIsDragging(false)}
+                className="flex gap-4 md:gap-6 whitespace-nowrap items-center cursor-grab active:cursor-grabbing will-change-transform"
               >
-                <div
-                  className="flex gap-4 md:gap-6 whitespace-nowrap items-center animate-[marquee_60s_linear_infinite] md:animate-[marquee_80s_linear_infinite]"
-                  style={{
-                    animationPlayState:
-                      isHovered || isDragging ? "paused" : "running",
-                  }}
-                >
-                  {/* Tripled list for a absolute seamless loop on all device widths */}
-                  {[
-                    ...skills.technical,
-                    ...skills.technical,
-                    ...skills.technical,
-                  ].map((skill, i) => (
-                    <motion.div
-                      key={`${skill}-${i}`}
-                      whileTap={{
-                        scale: 0.95,
-                        borderColor: THEME.colors.accentGold,
-                        backgroundColor: "rgba(15, 15, 15, 0.6)",
-                      }}
-                      className="p-4 md:p-8 min-w-[120px] md:min-w-[200px] border border-white/[0.05] bg-surface-slate/30 glass rounded-sm hover:border-accent-gold/40 hover:bg-surface-slate/60 transition-all duration-700 flex flex-col items-center justify-center gap-3 md:gap-4 group cursor-inherit"
-                    >
-                      <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/[0.03] group-hover:bg-accent-gold/10 flex items-center justify-center transition-all duration-500">
-                        <span className="text-[9px] md:text-xs text-accent-gold group-hover:scale-110 transition-transform font-bold uppercase">
-                          {skill.substring(0, 2)}
-                        </span>
-                      </div>
-                      <span className="font-display text-[10px] md:text-sm uppercase tracking-widest text-text-muted group-hover:text-white transition-colors duration-500">
-                        {skill}
+                {/* Tripled list for a absolute seamless loop on all device widths */}
+                {[
+                  ...skills.technical,
+                  ...skills.technical,
+                  ...skills.technical,
+                ].map((skill, i) => (
+                  <motion.div
+                    key={`${skill}-${i}`}
+                    whileTap={{ scale: 0.95 }}
+                    style={{ backfaceVisibility: "hidden" }}
+                    className="p-4 md:p-8 min-w-[120px] md:min-w-[200px] border border-white/[0.05] bg-surface-slate/80 rounded-sm hover:border-accent-gold/40 hover:bg-surface-slate/90 transition-all duration-700 flex flex-col items-center justify-center gap-3 md:gap-4 group cursor-inherit"
+                  >
+                    <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/[0.03] group-hover:bg-accent-gold/10 flex items-center justify-center transition-all duration-500">
+                      <span className="text-[9px] md:text-xs text-accent-gold group-hover:scale-110 transition-transform font-bold uppercase">
+                        {skill.substring(0, 2)}
                       </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+                    </div>
+                    <span className="font-display text-[10px] md:text-sm uppercase tracking-widest text-text-muted group-hover:text-white transition-colors duration-500">
+                      {skill}
+                    </span>
+                  </motion.div>
+                ))}
+              </motion.div>
 
               <div className="absolute top-0 left-0 w-12 md:w-40 h-full bg-gradient-to-r from-background-obsidian to-transparent z-10 pointer-events-none" />
               <div className="absolute top-0 right-0 w-12 md:w-40 h-full bg-gradient-to-l from-background-obsidian to-transparent z-10 pointer-events-none" />
             </div>
-            <p className="mt-4 font-display text-[9px] uppercase tracking-[0.2em] text-text-dim/60 text-center md:hidden">
+            <p className="mt-4 font-display text-[9px] uppercase tracking-[0.2em] text-text-dim/60 text-center">
               Auto-scrolling • Swipe to explore
             </p>
           </div>
@@ -212,11 +199,7 @@ export default function Skills() {
                     key={p.title}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    whileTap={{
-                      scale: 0.98,
-                      borderColor: THEME.colors.accentGold,
-                      backgroundColor: "rgba(15, 15, 15, 0.6)",
-                    }}
+                    whileTap={{ scale: 0.98 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: i * 0.1 }}
                     className="p-8 border border-white/5 bg-surface-slate/20 rounded-sm hover:border-accent-gold/20 transition-all duration-500 group cursor-default"
@@ -251,14 +234,10 @@ export default function Skills() {
                       scale: 1.02,
                       borderColor: THEME.colors.accentGold,
                     }}
-                    whileTap={{
-                      scale: 0.98,
-                      borderColor: THEME.colors.accentGold,
-                      backgroundColor: "rgba(212, 178, 70, 0.1)",
-                    }}
+                    whileTap={{ scale: 0.98 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="p-5 border border-white/[0.05] bg-surface-slate/40 shadow-xl glass rounded-sm group transition-all duration-700 cursor-default"
+                    className="p-5 border border-white/[0.05] bg-surface-slate/80 shadow-xl rounded-sm group transition-all duration-700 cursor-default"
                   >
                     <div className="flex items-center gap-5">
                       <div className="w-2 h-2 rounded-full bg-accent-gold group-hover:shadow-[0_0_15px_rgba(var(--accent-gold-raw),1)] transition-all duration-500" />

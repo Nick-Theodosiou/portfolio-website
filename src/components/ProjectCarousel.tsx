@@ -30,7 +30,7 @@ export default function ProjectCarousel({
   }, [images.length]);
 
   // Swipe detection constants
-  const swipeConfidenceThreshold = 10000;
+  const swipeConfidenceThreshold = 5000;
   const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
   };
@@ -74,14 +74,14 @@ export default function ProjectCarousel({
             setIsDragging(false);
             const swipe = swipePower(offset.x, velocity.x);
 
-            if (swipe < -swipeConfidenceThreshold) {
+            if (swipe < -swipeConfidenceThreshold || offset.x < -50) {
               handleNext();
-            } else if (swipe > swipeConfidenceThreshold) {
+            } else if (swipe > swipeConfidenceThreshold || offset.x > 50) {
               handlePrev();
             }
           }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 flex items-center justify-center p-2"
+          className="absolute inset-0 flex items-center justify-center p-2 cursor-grab active:cursor-grabbing w-full h-full touch-pan-y"
         >
           <Image
             src={images[currentIndex]}
@@ -96,8 +96,8 @@ export default function ProjectCarousel({
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute inset-x-0 bottom-6 flex justify-center z-20">
-        <div className="flex gap-2 px-3 py-2 bg-background-obsidian/30 backdrop-blur-md rounded-full border border-white/5">
+      <div className="absolute inset-x-0 bottom-6 flex justify-center z-20 pointer-events-none">
+        <div className="flex gap-2 px-3 py-2 bg-background-obsidian/30 backdrop-blur-md rounded-full border border-white/5 pointer-events-auto">
           {images.map((_, i) => (
             <button
               key={i}
@@ -119,7 +119,7 @@ export default function ProjectCarousel({
           e.preventDefault();
           handlePrev();
         }}
-        className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-background-obsidian/40 backdrop-blur-sm text-white/50 hover:text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer"
+        className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-background-obsidian/40 backdrop-blur-sm text-white/50 hover:text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer pointer-events-auto"
         aria-label="Previous slide"
       >
         <ChevronLeft size={20} />
@@ -130,7 +130,7 @@ export default function ProjectCarousel({
           e.preventDefault();
           handleNext();
         }}
-        className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-background-obsidian/40 backdrop-blur-sm text-white/50 hover:text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer"
+        className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-background-obsidian/40 backdrop-blur-sm text-white/50 hover:text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer pointer-events-auto"
         aria-label="Next slide"
       >
         <ChevronRight size={20} />

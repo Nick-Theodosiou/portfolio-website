@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { THEME } from "@/constants/theme";
 
 import ProjectCarousel from "./ProjectCarousel";
 
@@ -121,11 +120,7 @@ export default function Projects() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               whileHover={{ y: -5 }}
-              whileTap={{
-                scale: 0.98,
-                borderColor: THEME.colors.accentGold,
-                backgroundColor: "rgba(10, 10, 10, 0.6)",
-              }}
+              whileTap={{ scale: 0.98 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className={cn(

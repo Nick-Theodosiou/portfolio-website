@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { THEME } from "@/constants/theme";
 
 const experiences = [
   {
@@ -104,11 +103,7 @@ export default function Experience() {
                 />
 
                 <motion.div
-                  whileTap={{
-                    scale: 0.98,
-                    borderColor: THEME.colors.accentGold,
-                    backgroundColor: "rgba(15, 15, 15, 0.6)",
-                  }}
+                  whileTap={{ scale: 0.98 }}
                   className="p-8 md:p-12 border border-white/5 bg-surface-slate/40 glass rounded-sm transition-all duration-700 hover:border-accent-gold/40 hover:bg-surface-slate/60"
                 >
                   <div

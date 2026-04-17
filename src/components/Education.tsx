@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Award, GraduationCap, Medal, Globe } from "lucide-react";
-import { THEME } from "@/constants/theme";
 
 const education = {
   degree: "Bachelor's Degree in Computer Science",
@@ -54,11 +53,7 @@ export default function Education() {
             </h2>
 
             <motion.div
-              whileTap={{
-                scale: 0.98,
-                borderColor: THEME.colors.accentGold,
-                backgroundColor: "rgba(15, 15, 15, 0.6)",
-              }}
+              whileTap={{ scale: 0.98 }}
               className="p-8 md:p-12 border border-border-subtle bg-background-obsidian relative group cursor-default"
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent-gold to-transparent" />
@@ -107,11 +102,7 @@ export default function Education() {
                   key={cert.title}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  whileTap={{
-                    scale: 0.98,
-                    borderColor: THEME.colors.accentGold,
-                    backgroundColor: "rgba(15, 15, 15, 0.6)",
-                  }}
+                  whileTap={{ scale: 0.98 }}
                   viewport={{ once: true }}
                   className="flex items-start gap-6 p-6 md:p-8 border border-white/5 bg-background-obsidian hover:border-accent-gold/30 transition-all duration-500 rounded-sm group cursor-default"
                 >

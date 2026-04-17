@@ -119,11 +119,7 @@ export default function About() {
                   borderColor: THEME.colors.accentGold,
                   backgroundColor: "rgba(10, 10, 10, 0.6)",
                 }}
-                whileTap={{
-                  scale: 0.98,
-                  borderColor: THEME.colors.accentGold,
-                  backgroundColor: "rgba(10, 10, 10, 0.6)",
-                }}
+                whileTap={{ scale: 0.98 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 className="p-6 md:p-8 border border-white/[0.05] bg-surface-slate/50 group hover:border-accent-gold/40 hover:bg-surface-slate transition-all duration-500 rounded-sm cursor-default"
